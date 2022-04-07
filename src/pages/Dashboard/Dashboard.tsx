@@ -2,6 +2,7 @@ import { useEffect, useState, FocusEvent } from "react";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
+import * as yup from 'yup';
 
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -22,6 +23,7 @@ import {
   setWordSearch,
   searchAsync,
   selectTracks,
+  setErrorMessage
 } from './tracksSlice';
 
 
@@ -34,7 +36,9 @@ export const Dashboard = () => {
     tracks,
     albums,
     wordSearch,
-    valueSelect
+    valueSelect,
+    errorInput,
+    messageError
   } = useAppSelector(selectTracks);
   const dispatch = useAppDispatch();
 
@@ -46,15 +50,33 @@ export const Dashboard = () => {
     dispatch(searchAsync(wordSearch))
   }, [])
 
+  async function search(){
+    let schema = yup
+    .string()
+    .matches(/^[aA-zZ&\s]+$/, "Debes buscar solo por palabras, no incluyas caracteres especiales")
+
+    try {
+      if(wordSearch.length > 0){
+        await schema.validate(wordSearch)
+        
+        dispatch(searchAsync(wordSearch))
+        dispatch(setErrorMessage(''))
+      }
+   
+    } catch(e: any) {
+      dispatch(setErrorMessage(e.message))
+    }
+  }
+
   useEffect(() => {
-    dispatch(searchAsync(wordSearch))
+    search()
   }, [wordSearch])
 
 
   useEffect(() => {
     if(valueSelect === 'history'){
       const lists = getHistory()
-      setHistoryList(lists)
+      setHistoryList(lists.reverse())
     }
   }, [valueSelect])
 
@@ -67,6 +89,8 @@ export const Dashboard = () => {
 
       <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
         <TextField
+          error={errorInput}
+          helperText={messageError}
           id="standard-basic"
           label="Buscar artista, música, album "
           variant="standard"
@@ -117,7 +141,6 @@ export const Dashboard = () => {
                       <CardTrack key={track.id} track={track} />
                     ))
                 }
-                
               </div>
             )
           }

@@ -17,6 +17,8 @@ export interface CounterState {
   albums: IAlbum[];
   valueSelect: string;
   wordSearch: string;
+  errorInput: boolean;
+  messageError: string;
 }
 
 const initialState: CounterState = {
@@ -25,7 +27,9 @@ const initialState: CounterState = {
   tracks: [],
   albums: [],
   valueSelect: 'track',
-  wordSearch: ''
+  wordSearch: '',
+  errorInput: false,
+  messageError: ''
 };
 
 
@@ -57,6 +61,15 @@ export const tracksSlice = createSlice({
     setWordSearch: (state, action: PayloadAction<string>) => {
       state.wordSearch = action.payload;
     },
+    setErrorMessage: (state, action: PayloadAction<string>) => {
+      if(action.payload.length === 0){
+        state.errorInput = false
+        state.messageError = ''
+      } else {
+        state.errorInput = true
+        state.messageError = action.payload
+      }
+    }
   },
 
   extraReducers: (builder) => {
@@ -73,7 +86,7 @@ export const tracksSlice = createSlice({
   },
 });
 
-export const { setValueSelect, setWordSearch } = tracksSlice.actions;
+export const { setValueSelect, setWordSearch, setErrorMessage } = tracksSlice.actions;
 
 export const selectTracks = (state: RootState) => state.tracks;
 

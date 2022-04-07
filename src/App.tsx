@@ -14,7 +14,7 @@ function App() {
   };
 
   useEffect(() => {
-    sum([1,2,3, 40])((result: number) => console.log("this is exercise 2", {result}))
+    sum([1,2,3, 40])((result: number) => console.log("this is exercise 1", {result}))
   }, [])
 
   return(

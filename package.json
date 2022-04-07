@@ -2,7 +2,7 @@
   "name": "prueba_tecnica",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dev-cardenas.github.io",
+  "homepage": "https://dev-cardenas.github.io/test-spotify-api",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",

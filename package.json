@@ -29,7 +29,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "npm run build && npm run server",
+    "start": "npm run build && npm run server -p $PORT",
     "server": "serve -s build",
     "dev": "react-scripts start",
     "build": "react-scripts build",

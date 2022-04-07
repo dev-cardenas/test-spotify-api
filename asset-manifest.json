@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.3a11b3bb.css",
-    "main.js": "/static/js/main.8634acb7.js",
-    "static/js/787.8f163d29.chunk.js": "/static/js/787.8f163d29.chunk.js",
-    "index.html": "/index.html",
-    "main.3a11b3bb.css.map": "/static/css/main.3a11b3bb.css.map",
-    "main.8634acb7.js.map": "/static/js/main.8634acb7.js.map",
-    "787.8f163d29.chunk.js.map": "/static/js/787.8f163d29.chunk.js.map"
+    "main.css": "/test-spotify-api/static/css/main.3a11b3bb.css",
+    "main.js": "/test-spotify-api/static/js/main.c469f61c.js",
+    "static/js/787.8f163d29.chunk.js": "/test-spotify-api/static/js/787.8f163d29.chunk.js",
+    "index.html": "/test-spotify-api/index.html",
+    "main.3a11b3bb.css.map": "/test-spotify-api/static/css/main.3a11b3bb.css.map",
+    "main.c469f61c.js.map": "/test-spotify-api/static/js/main.c469f61c.js.map",
+    "787.8f163d29.chunk.js.map": "/test-spotify-api/static/js/787.8f163d29.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3a11b3bb.css",
-    "static/js/main.8634acb7.js"
+    "static/js/main.c469f61c.js"
   ]
 }

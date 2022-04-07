@@ -5,61 +5,49 @@ import Grid from '@mui/material/Grid';
 
 import SearchIcon from '@mui/icons-material/Search';
 
-import { api } from "../services/api"
-import { getToken } from "../hook/useGetToken"
-import { getHistory } from "../helper/historyTrack"
+import { getHistory } from "../../helper/historyTrack"
 
-import { SkeletonLoading } from "../components/SkeletonLoading"
-import { CardTrack } from "../components/CardTrack"
-import { CardArtist } from "../components/CardArtist"
-import { CardAlbum } from "../components/CardAlbum"
-import { Select } from "../components/Select"
+import { SkeletonLoading } from "../../components/SkeletonLoading"
+import { CardTrack } from "../../components/CardTrack"
+import { CardArtist } from "../../components/CardArtist"
+import { CardAlbum } from "../../components/CardAlbum"
+import { Select } from "../../components/Select"
 
 import {
-  IArtist,
-  ITracks,
-  IAlbum,
-  AxiosSearchResponse
-} from '../types/types'
+  ITracks
+} from '../../types/types'
+import { useAppSelector, useAppDispatch } from '../../lib/redux/hookRedux';
+import {
+  setValueSelect,
+  setWordSearch,
+  searchAsync,
+  selectTracks,
+} from './tracksSlice';
 
 
 export const Dashboard = () => {
-  const [loading, setLoading] = useState(false)
-  const [ artists, setArtists ] = useState<IArtist[]>([])
-  const [ tracks, setTracks ] = useState<ITracks[]>([])
   const [ historyList, setHistoryList ] = useState<ITracks[]>([])
-  const [ albums, setAlbums ] = useState<IAlbum[]>([])
-  const [valueSelect, setValueSelect] = useState('track');
-  const [wordSearch, setWordSearch] = useState('')
+
+  const {
+    loading,
+    artists,
+    tracks,
+    albums,
+    wordSearch,
+    valueSelect
+  } = useAppSelector(selectTracks);
+  const dispatch = useAppDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValueSelect((event.target as HTMLInputElement).value);
+    dispatch(setValueSelect((event.target as HTMLInputElement).value));
   };
 
-  async function search(words?: string){
-    setLoading(true)
-    const token = await getToken()
-    const response: AxiosSearchResponse = await api.get(
-      `/search?query=${words || "bob" }&type=track,artist,album&market=es&limit=50&offset=0&include_external=audio`, 
-      {
-        headers: {
-          Authorization : `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    )
-    setArtists(response.data.artists.items)
-    setTracks(response.data.tracks.items)
-    setAlbums(response.data.albums.items)
-    setLoading(false)
-  }
-
   useEffect(() => {
-    search()
+    dispatch(searchAsync(wordSearch))
   }, [])
 
   useEffect(() => {
-    search(wordSearch)
+    dispatch(searchAsync(wordSearch))
   }, [wordSearch])
 
 
@@ -71,8 +59,7 @@ export const Dashboard = () => {
   }, [valueSelect])
 
   function handleBlur(e: FocusEvent<HTMLInputElement>){
-    console.log(e.target.value)
-    setWordSearch(e.target.value)
+    dispatch(setWordSearch(e.target.value))
   }
 
   return (
@@ -100,7 +87,7 @@ export const Dashboard = () => {
       <Grid container spacing={2}>
         <Grid item xs={4}>
           {
-            loading ? 
+            loading ?
             <SkeletonLoading />
             : (
               <div style={{ height: '100vh', overflow: 'auto' }}>
@@ -134,7 +121,6 @@ export const Dashboard = () => {
               </div>
             )
           }
-          
         </Grid>
       </Grid>
 

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from '@mui/material/Container';
 import Switch from '@mui/material/Switch';
-import { Dashboard } from "./pages/Dashboard"
+import { Dashboard } from "./pages/Dashboard/Dashboard"
 import { ListNicknames } from "./components/ListNicknames"
+
+import { sum } from "./helper/FunctionTest1"
 
 function App() {
   const [checked, setChecked] = React.useState(true);
@@ -10,6 +12,10 @@ function App() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
+
+  useEffect(() => {
+    sum([1,2,3, 40])((result: number) => console.log("this is exercise 2", {result}))
+  }, [])
 
   return(
     <Container style={{ backgroundColor: '#fff'}}>

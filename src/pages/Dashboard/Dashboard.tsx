@@ -70,7 +70,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     search()
-  }, [wordSearch])
+  }, [wordSearch, dispatch])
 
 
   useEffect(() => {

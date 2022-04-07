@@ -6,7 +6,6 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { IArtist } from '../types/types'
 
@@ -19,11 +18,6 @@ export function CardArtist({ artist }: ICardArtist) {
   return (
     <Card key={artist.id} sx={{ maxWidth: 345, marginTop: 2 }}>
       <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
         title={artist.name}
         subheader={artist.type}
       />

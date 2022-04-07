@@ -2,6 +2,7 @@
   "name": "prueba_tecnica",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://dev-cardenas.github.io",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -31,6 +32,8 @@
   "scripts": {
     "start": "npm run build && npm run server -p $PORT",
     "server": "serve -s build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -58,6 +61,7 @@
     ]
   },
   "devDependencies": {
-    "@types/qs": "^6.9.7"
+    "@types/qs": "^6.9.7",
+    "gh-pages": "^3.2.3"
   }
 }

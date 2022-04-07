@@ -8,8 +8,6 @@ import StarIcon from '@mui/icons-material/Star';
 import { Player } from "./Player"
 
 
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
 import { ITracks } from '../types/types'
 
 interface ICardTrack {
@@ -24,11 +22,6 @@ export function CardTrack({ track }: ICardTrack) {
       sx={{ maxWidth: 345, marginTop: 2 }}
     >
       <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
         title={track.name}
         subheader={track.type}
       />
